@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل البينيين والنغمات الأربع — تعلّم الصيني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17140F; --ink-2:#211C15; --paper:#F1E8D6; --paper-2:#E7DBC1;
+    --seal:#B23A2E; --seal-dark:#8C2C22; --gold:#C9A24B; --jade:#3F6259;
+    --text-soft:#D8CDB6; --text-dim:#8A8272;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background:var(--ink); color:var(--paper); font-family:'Tajawal',sans-serif; line-height:1.75; }
+  h1,h2,h3{ font-family:'Amiri',serif; }
+  .zh{ font-family:'Noto Serif SC',serif; }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+  a{ color:var(--gold); }
+
+  header.top{
+    position:sticky; top:0; z-index:20; background:rgba(23,20,15,0.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,162,75,0.18); padding:16px 0;
+  }
+  header.top .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Amiri',serif; font-size:1.15rem; }
+  .back-link{ font-size:0.9rem; color:var(--text-soft); }
+  .back-link:hover{ color:var(--gold); }
+
+  .hero{ padding:64px 0 40px; border-bottom:1px solid rgba(201,162,75,0.15); }
+  .eyebrow{ color:var(--gold); font-size:0.85rem; margin-bottom:12px; }
+  h1{ font-size:2.2rem; margin-bottom:16px; }
+  .hero p{ color:var(--text-soft); max-width:640px; }
+
+  section{ padding:56px 0; border-bottom:1px solid rgba(201,162,75,0.1); }
+  h2{ font-size:1.6rem; margin-bottom:18px; color:var(--paper); }
+  p.lead{ color:var(--text-soft); margin-bottom:28px; max-width:680px; }
+
+  /* tone cards */
+  .tones-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .tone-card{
+    background:var(--ink-2); border:1px solid rgba(201,162,75,0.2); border-radius:6px;
+    padding:24px 18px; text-align:center; cursor:pointer; transition:border-color .25s, transform .2s;
+  }
+  .tone-card:hover{ border-color:var(--gold); transform:translateY(-3px); }
+  .tone-mark{ font-size:2.4rem; color:var(--seal); font-weight:700; margin-bottom:6px; }
+  .tone-name{ font-size:0.95rem; font-weight:700; margin-bottom:10px; }
+  .tone-shape{ font-size:1.6rem; color:var(--gold); margin-bottom:10px; }
+  .tone-desc{ font-size:0.85rem; color:var(--text-dim); }
+  .tone-example{ margin-top:14px; font-size:0.85rem; color:var(--jade); }
+  .play-btn{
+    margin-top:14px; background:transparent; border:1px solid var(--gold); color:var(--gold);
+    padding:8px 16px; border-radius:3px; font-size:0.8rem; cursor:pointer; font-family:'Tajawal',sans-serif;
+    transition:all .2s;
+  }
+  .play-btn:hover{ background:var(--gold); color:var(--ink); }
+  .play-btn:disabled{ opacity:0.5; cursor:wait; }
+
+  /* comparison callout */
+  .callout{
+    background:rgba(63,98,89,0.14); border:1px solid rgba(63,98,89,0.35); border-radius:6px;
+    padding:22px 26px; margin-top:30px; font-size:0.92rem; color:var(--text-soft);
+  }
+  .callout strong{ color:var(--jade); }
+
+  /* tables */
+  table{ width:100%; border-collapse:collapse; margin-top:10px; }
+  th, td{ padding:12px 10px; text-align:right; border-bottom:1px solid rgba(201,162,75,0.14); font-size:0.92rem; }
+  th{ color:var(--gold); font-weight:700; font-size:0.85rem; }
+  td.zh-col{ font-family:'Noto Serif SC',serif; font-size:1.1rem; color:var(--paper); }
+  td.dim{ color:var(--text-dim); }
+  tr:hover td{ background:rgba(201,162,75,0.04); }
+  .table-note{ font-size:0.82rem; color:var(--text-dim); margin-top:10px; }
+
+  .sound-btn{
+    background:none; border:1px solid rgba(201,162,75,0.35); color:var(--gold);
+    width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:0.85rem;
+  }
+  .sound-btn:hover{ background:var(--gold); color:var(--ink); }
+
+  /* practice drill */
+  .drill-box{
+    background:var(--ink-2); border:1px solid rgba(201,162,75,0.2); border-radius:6px; padding:30px;
+    text-align:center; margin-top:20px;
+  }
+  .drill-syllable{ font-family:'Noto Serif SC',serif; font-size:3rem; color:var(--seal); margin-bottom:8px; }
+  .drill-pinyin{ font-size:1.3rem; color:var(--gold); margin-bottom:20px; }
+  .drill-options{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .drill-opt{
+    background:var(--ink); border:1px solid rgba(201,162,75,0.3); color:var(--paper);
+    padding:12px 20px; border-radius:4px; cursor:pointer; font-family:'Tajawal',sans-serif; font-size:0.95rem;
+  }
+  .drill-opt:hover{ border-color:var(--gold); }
+  .drill-opt.correct{ background:var(--jade); border-color:var(--jade); }
+  .drill-opt.wrong{ background:var(--seal); border-color:var(--seal); }
+  .drill-feedback{ margin-top:16px; font-size:0.9rem; min-height:20px; color:var(--text-soft); }
+  .drill-next{ margin-top:16px; background:var(--seal); color:var(--paper); border:none; padding:10px 22px; border-radius:4px; cursor:pointer; font-family:'Tajawal',sans-serif; display:none; }
+
+  footer{ padding:40px 0; text-align:center; color:var(--text-dim); font-size:0.85rem; }
+
+  @media (max-width:700px){
+    .tones-grid{ grid-template-columns:1fr 1fr; }
+    h1{ font-size:1.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">تعلّم <span class="zh" style="color:var(--seal)">中文</span></div>
+    <a class="back-link" href="index.html">→ رجوع للرئيسية</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">الوحدة الأولى — الأساس</div>
+    <h1>البينيين والنغمات الأربع</h1>
+    <p>قبل ما تتعلم أي كلمة صينية، لازم تفهم البينيين (نظام كتابة النطق بالحروف اللاتينية) والنغمات. النغمة في الصيني مش زينة في الصوت، هي جزء من معنى الكلمة: نفس المقطع بنغمة مختلفة بقى كلمة تانية خالص.</p>
+  </div>
+</section>
+
+<section id="tones">
+  <div class="wrap">
+    <h2>النغمات الأربع</h2>
+    <p class="lead">كل مقطع صيني بينطق بواحدة من 4 نغمات أساسية (وفيه نغمة خامسة "خفيفة" هنشرحها لاحقًا). دوس على أي كارت تسمع المثال.</p>
+
+    <div class="tones-grid">
+      <div class="tone-card" data-syll="mā" data-tone="1">
+        <div class="tone-mark">mā</div>
+        <div class="tone-name">النغمة الأولى</div>
+        <div class="tone-shape">ˉ</div>
+        <div class="tone-desc">صوت مسطح وثابت من البداية للنهاية، من غير صعود ولا نزول — زي المدّ الثابت في تلاوة القرآن.</div>
+        <div class="tone-example zh">妈 (mā) = أم</div>
+        <button class="play-btn" onclick="playSyllable('mā')">🔊 اسمع</button>
+      </div>
+      <div class="tone-card" data-syll="má" data-tone="2">
+        <div class="tone-mark">má</div>
+        <div class="tone-name">النغمة الثانية</div>
+        <div class="tone-shape">ˊ</div>
+        <div class="tone-desc">صوت تصاعدي من نبرة منخفضة لعالية — بالظبط زي لما تسأل بتعجب "إيه؟↗" في العامية المصرية.</div>
+        <div class="tone-example zh">麻 (má) = كتان / خدر</div>
+        <button class="play-btn" onclick="playSyllable('má')">🔊 اسمع</button>
+      </div>
+      <div class="tone-card" data-syll="mǎ" data-tone="3">
+        <div class="tone-mark">mǎ</div>
+        <div class="tone-name">النغمة الثالثة</div>
+        <div class="tone-shape">ˇ</div>
+        <div class="tone-desc">تبدأ متوسطة، تنزل لأسفل، وبعدين ترجع تعلى شوية — زي نبرة التردد "يعنـي..." وإنت بتفكر.</div>
+        <div class="tone-example zh">马 (mǎ) = حصان</div>
+        <button class="play-btn" onclick="playSyllable('mǎ')">🔊 اسمع</button>
+      </div>
+      <div class="tone-card" data-syll="mà" data-tone="4">
+        <div class="tone-mark">mà</div>
+        <div class="tone-name">النغمة الرابعة</div>
+        <div class="tone-shape">ˋ</div>
+        <div class="tone-desc">نزول حاد وسريع من عالي لواطي — زي نبرة الأمر أو التوبيخ "امشي!" في العربي.</div>
+        <div class="tone-example zh">骂 (mà) = يشتم</div>
+        <button class="play-btn" onclick="playSyllable('mà')">🔊 اسمع</button>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>ليه ده مهم؟</strong> الأربع كلمات اللي فوق (妈 ماما، 麻 كتان، 马 حصان، 骂 يشتم) بتتكتب بنفس الحروف اللاتينية "ma" بس بنغمة مختلفة — ولو قلت النغمة الغلط، ممكن تقول "الحصان بتاعي" وإنت قاصد "أمي". في العربي إحنا بنميز الكلمات بالحروف، وفي الصيني بتتميز بالنغمة كمان.
+    </div>
+  </div>
+</section>
+
+<section id="initials">
+  <div class="wrap">
+    <h2>حروف البداية (声母)</h2>
+    <p class="lead">دي أصوات بداية المقطع، زي حروف العلة في العربي. اللي محتاج انتباه خاص هو الفرق بين الصوت "المنفوس" (فيه نفَس قوي) والصوت "الغير منفوس" — ده تمييز مش موجود في العربي أصلًا.</p>
+    <table>
+      <thead><tr><th>بينيين</th><th>أقرب صوت عربي</th><th>ملاحظة</th></tr></thead>
+      <tbody>
+        <tr><td class="zh-col">b</td><td>بين الباء والباء الخفيفة</td><td class="dim">بدون نفَس قوي، أخف من الباء العربي</td></tr>
+        <tr><td class="zh-col">p</td><td>پ + نفخة هواء</td><td class="dim">زي الباء بس بنفخة هواء واضحة بعدها</td></tr>
+        <tr><td class="zh-col">m</td><td>م</td><td class="dim">مطابق تقريبًا</td></tr>
+        <tr><td class="zh-col">d</td><td>د خفيفة</td><td class="dim">بدون نفخة هواء</td></tr>
+        <tr><td class="zh-col">t</td><td>ت + نفخة هواء</td><td class="dim">زي التاء بس بنفخة أقوى</td></tr>
+        <tr><td class="zh-col">g</td><td>ج المصرية (حرف g)</td><td class="dim">بدون نفخة، من الحلق</td></tr>
+        <tr><td class="zh-col">k</td><td>ك + نفخة هواء</td><td class="dim">أقوى من الكاف العادية</td></tr>
+        <tr><td class="zh-col">h</td><td>خ خفيفة</td><td class="dim">أقرب للخاء من الهاء</td></tr>
+        <tr><td class="zh-col">j</td><td>ج رقيقة</td><td class="dim">زي الجيم في "جيل" الفرنساوي، مش الجيم المصرية</td></tr>
+        <tr><td class="zh-col">q</td><td>مفيش مقابل مباشر</td><td class="dim">تش رقيقة، لسانك يلمس سقف الحلق الأمامي</td></tr>
+        <tr><td class="zh-col">x</td><td>ش رقيقة جدًا</td><td class="dim">بين الشين والسين، صوت مهموس ناعم</td></tr>
+        <tr><td class="zh-col">zh / ch / sh</td><td>ج/تش/ش بلسان لفوق</td><td class="dim">أصوات "مرتدة"، طرف اللسان بيرجع لسقف الحلق</td></tr>
+        <tr><td class="zh-col">r</td><td>بين الراء والجيم الإنجليزية</td><td class="dim">مفيش مقابل دقيق في العربي</td></tr>
+      </tbody>
+    </table>
+    <p class="table-note">التمييز "منفوس / غير منفوس" (b مقابل p، d مقابل t، g مقابل k) هو أهم حاجة تتدرب عليها الأول، لأنه بيغيّر معنى الكلمة تمامًا زي ما النغمة بتغيره.</p>
+  </div>
+</section>
+
+<section id="finals">
+  <div class="wrap">
+    <h2>حروف النهاية (韵母)</h2>
+    <p class="lead">دي الأصوات اللي بتيجي بعد حرف البداية، زي الحركات في العربي بس أطول وأعقد شوية.</p>
+    <table>
+      <thead><tr><th>بينيين</th><th>أقرب صوت عربي</th></tr></thead>
+      <tbody>
+        <tr><td class="zh-col">a</td><td>فتحة مفتوحة زي "ألف"</td></tr>
+        <tr><td class="zh-col">o</td><td>ضمة زي "قول"</td></tr>
+        <tr><td class="zh-col">e</td><td>مفيش مقابل دقيق، بين الفتحة والضمة من الحلق</td></tr>
+        <tr><td class="zh-col">i</td><td>كسرة زي "فيل"</td></tr>
+        <tr><td class="zh-col">u</td><td>ضمة طويلة زي "نور"</td></tr>
+        <tr><td class="zh-col">ü</td><td>مفيش مقابل، زي "u" الفرنساوي — شفايفك مضمومة ولسانك في وضع "i"</td></tr>
+        <tr><td class="zh-col">ai</td><td>زي "اي" في "بيت"</td></tr>
+        <tr><td class="zh-col">ei</td><td>زي "يه" في "بيه"</td></tr>
+        <tr><td class="zh-col">ao</td><td>زي "او" في "ناوي"</td></tr>
+        <tr><td class="zh-col">an</td><td>زي "ان" في "بان"</td></tr>
+        <tr><td class="zh-col">ang</td><td>زي "ان" بس بغنة من الأنف</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="wrap">
+    <h2>تمرين سريع</h2>
+    <p class="lead">اسمع المقطع واختار النغمة الصح.</p>
+    <div class="drill-box">
+      <div class="drill-syllable zh" id="drillChar">妈</div>
+      <div class="drill-pinyin" id="drillHint">دوس اسمع الأول 👇</div>
+      <button class="play-btn" onclick="playDrill()">🔊 اسمع المقطع</button>
+      <div class="drill-options" id="drillOptions">
+        <button class="drill-opt" onclick="checkDrill(this,1)">mā — نغمة 1</button>
+        <button class="drill-opt" onclick="checkDrill(this,2)">má — نغمة 2</button>
+        <button class="drill-opt" onclick="checkDrill(this,3)">mǎ — نغمة 3</button>
+        <button class="drill-opt" onclick="checkDrill(this,4)">mà — نغمة 4</button>
+      </div>
+      <div class="drill-feedback" id="drillFeedback"></div>
+      <button class="drill-next" id="drillNext" onclick="newDrill()">درّب على مقطع تاني ←</button>
+    </div>
+  </div>
+</section>
+
+<footer>تعلّم 中文 — صُنع بشغف من مصر</footer>
+
+<script>
+  /* ---- Audio bridge: same pattern used across the app family.
+     On Kodular WebView build this calls into Text_To_Speech1 via
+     window.AppInventor.setWebViewString(); in a plain browser it
+     falls back to the Web Speech API with a zh-CN voice. ---- */
+  let zhVoice = null;
+  let voicesReady = false;
+
+  function loadZhVoice(){
+    if (!('speechSynthesis' in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length){
+      zhVoice = voices.find(v => v.lang === 'zh-CN')
+             || voices.find(v => v.lang && v.lang.startsWith('zh'))
+             || null;
+      voicesReady = true;
+    }
+  }
+  if ('speechSynthesis' in window){
+    loadZhVoice();
+    window.speechSynthesis.onvoiceschanged = loadZhVoice;
+  }
+
+  function speakChinese(text){
+    if (window.AppInventor && typeof window.AppInventor.setWebViewString === 'function'){
+      window.AppInventor.setWebViewString('SPEAK_ZH::' + text);
+      return;
+    }
+    if (!('speechSynthesis' in window)){
+      alert('المتصفح ده مش بيدعم النطق الصوتي (Web Speech API).');
+      return;
+    }
+    if (!voicesReady){
+      loadZhVoice();
+      if (!voicesReady){
+        setTimeout(() => speakChinese(text), 300);
+        return;
+      }
+    }
+    if (!zhVoice){
+      alert('مفيش صوت صيني (zh-CN) متثبت على الجهاز/المتصفح ده. على أندرويد: Settings → General management → Text-to-speech → ثبّت بيانات صوت الصينية.');
+      return;
+    }
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.voice = zhVoice;
+    utter.lang = 'zh-CN';
+    utter.rate = 0.85;
+    utter.onerror = (e) => console.error('TTS error:', e.error);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+  }
+
+  const toneMap = { 'mā':'妈', 'má':'麻', 'mǎ':'马', 'mà':'骂' };
+  function playSyllable(pinyin){
+    speakChinese(toneMap[pinyin] || pinyin);
+  }
+
+  /* ---- practice drill ---- */
+  const drillItems = [
+    { char:'妈', pinyin:'mā', tone:1 },
+    { char:'麻', pinyin:'má', tone:2 },
+    { char:'马', pinyin:'mǎ', tone:3 },
+    { char:'骂', pinyin:'mà', tone:4 }
+  ];
+  let currentDrill = drillItems[0];
+
+  function playDrill(){
+    speakChinese(currentDrill.char);
+    document.getElementById('drillHint').textContent = 'اسمعت الصوت؟ اختار النغمة الصح 👇';
+  }
+
+  function checkDrill(btn, tone){
+    const opts = document.querySelectorAll('.drill-opt');
+    opts.forEach(o=>o.disabled = true);
+    const feedback = document.getElementById('drillFeedback');
+    if (tone === currentDrill.tone){
+      btn.classList.add('correct');
+      feedback.textContent = 'صح! أحسنت 🎉';
+      feedback.style.color = 'var(--jade)';
+    } else {
+      btn.classList.add('wrong');
+      feedback.textContent = `مش قصادها. الإجابة الصح كانت نغمة ${currentDrill.tone} (${currentDrill.pinyin})`;
+      feedback.style.color = 'var(--seal)';
+    }
+    document.getElementById('drillNext').style.display = 'inline-block';
+  }
+
+  function newDrill(){
+    currentDrill = drillItems[Math.floor(Math.random()*drillItems.length)];
+    document.getElementById('drillChar').textContent = currentDrill.char;
+    document.getElementById('drillHint').textContent = 'دوس اسمع الأول 👇';
+    document.getElementById('drillFeedback').textContent = '';
+    document.getElementById('drillNext').style.display = 'none';
+    document.querySelectorAll('.drill-opt').forEach(o=>{
+      o.disabled = false; o.classList.remove('correct','wrong');
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خريطة دروس HSK1 — تعلّم الصيني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17140F; --ink-2:#211C15; --paper:#F1E8D6;
+    --seal:#B23A2E; --seal-dark:#8C2C22; --gold:#C9A24B; --jade:#3F6259;
+    --text-soft:#D8CDB6; --text-dim:#8A8272;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background:var(--ink); color:var(--paper); font-family:'Tajawal',sans-serif; line-height:1.75; }
+  h1{ font-family:'Amiri',serif; }
+  .zh{ font-family:'Noto Serif SC',serif; }
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+  a{ text-decoration:none; }
+
+  header.top{
+    position:sticky; top:0; z-index:20; background:rgba(23,20,15,0.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,162,75,0.18); padding:16px 0;
+  }
+  header.top .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Amiri',serif; font-size:1.15rem; color:var(--paper); }
+  .back-link{ font-size:0.9rem; color:var(--text-soft); }
+  .back-link:hover{ color:var(--gold); }
+
+  .hero{ padding:56px 0 34px; }
+  .eyebrow{ color:var(--gold); font-size:0.85rem; margin-bottom:10px; }
+  h1{ font-size:2rem; margin-bottom:14px; color:var(--paper); }
+  .hero p{ color:var(--text-soft); max-width:640px; }
+
+  section{ padding:10px 0 60px; }
+
+  .lesson-grid{ display:flex; flex-direction:column; gap:1px; background:rgba(201,162,75,0.15); border:1px solid rgba(201,162,75,0.15); border-radius:4px; overflow:hidden; margin-top:20px; }
+  .lesson-card{
+    background:var(--ink-2); padding:22px 26px; display:flex; align-items:center; gap:20px;
+    transition:background .25s;
+  }
+  .lesson-card:hover{ background:#28221A; }
+  .lesson-num{ font-family:'Noto Serif SC',serif; font-size:1.6rem; color:var(--seal); width:44px; flex-shrink:0; }
+  .lesson-info{ flex:1; }
+  .lesson-title{ font-weight:700; color:var(--paper); font-size:1.05rem; margin-bottom:4px; }
+  .lesson-count{ font-size:0.82rem; color:var(--text-dim); }
+  .lesson-arrow{ color:var(--gold); font-size:1.2rem; }
+
+  footer{ padding:40px 0; text-align:center; color:var(--text-dim); font-size:0.85rem; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">تعلّم <span class="zh" style="color:var(--seal)">中文</span></div>
+    <a class="back-link" href="index.html">→ الرئيسية</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">المستوى الأول</div>
+    <h1>مستوى HSK1 — 10 دروس</h1>
+    <p>حوالي 150 كلمة أساسية، مقسّمة على 10 دروس بالموضوع. كمّل بالترتيب أو روح على أي درس عايزه مباشرة.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="lesson-grid" id="lessonGrid"></div>
+  </div>
+</section>
+
+<footer>تعلّم 中文 — مستوى HSK1</footer>
+
+<script src="hsk1-data.js"></script>
+<script>
+  const grid = document.getElementById('lessonGrid');
+  HSK1_LESSONS.forEach(lesson => {
+    const a = document.createElement('a');
+    a.className = 'lesson-card';
+    a.href = `lesson.html?l=${lesson.id}`;
+    a.innerHTML = `
+      <div class="lesson-num">${String(lesson.id).padStart(2,'0')}</div>
+      <div class="lesson-info">
+        <div class="lesson-title">${lesson.title}</div>
+        <div class="lesson-count">${lesson.words.length} كلمة</div>
+      </div>
+      <div class="lesson-arrow">←</div>
+    `;
+    grid.appendChild(a);
+  });
+</script>
+
+</body>
+</html>
