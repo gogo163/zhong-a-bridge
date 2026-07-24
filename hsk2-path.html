@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستوى HSK2 — مسار الدروس</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FBF6EA; --ink-2:#FFFFFF; --paper:#241F16;
+    --seal:#B23A2E; --seal-dark:#8C2C22; --gold:#A8792B; --jade:#2F4F47;
+    --text-soft:#5C5240; --text-dim:#7A7260;
+    --locked:#C9C0AC;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background:var(--ink); color:var(--paper); font-family:'Tajawal',sans-serif; line-height:1.7; padding-bottom:60px; }
+  h1,h2{ font-family:'Amiri',serif; }
+  .zh{ font-family:'Noto Serif SC',serif; }
+  a{ text-decoration:none; color:inherit; }
+  .wrap{ max-width:520px; margin:0 auto; padding:0 20px; }
+
+  /* -------------------- الهيدر -------------------- */
+  header.top{
+    position:sticky; top:0; z-index:30; background:rgba(251,246,234,0.95); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(150,110,40,0.18); padding:14px 0;
+  }
+  header.top .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Amiri',serif; font-size:1.05rem; }
+  .back-link{ font-size:0.85rem; color:var(--text-soft); }
+
+  .stat-bar{
+    display:flex; gap:14px; align-items:center;
+  }
+  .stat{
+    display:flex; align-items:center; gap:5px; font-weight:800; font-size:0.9rem;
+    background:var(--ink-2); border:1px solid rgba(150,110,40,0.25); border-radius:999px;
+    padding:5px 12px;
+  }
+  .stat.streak{ color:var(--seal); }
+  .stat.points{ color:var(--gold); }
+
+  /* -------------------- الهيرو -------------------- */
+  .hero{ padding:36px 0 10px; text-align:center; }
+  .eyebrow{ color:var(--gold); font-size:0.8rem; margin-bottom:8px; }
+  h1{ font-size:1.7rem; margin-bottom:8px; }
+  .hero p{ color:var(--text-soft); font-size:0.9rem; max-width:380px; margin:0 auto; }
+
+  /* -------------------- زرار الاستمرار -------------------- */
+  .continue-box{
+    max-width:380px; margin:22px auto 0; background:var(--ink-2);
+    border:1px solid rgba(150,110,40,0.25); border-radius:14px; padding:16px 18px;
+    display:flex; align-items:center; gap:14px; box-shadow:0 8px 22px rgba(36,31,22,0.08);
+  }
+  .continue-box .n{
+    width:42px; height:42px; border-radius:50%; background:var(--seal); color:var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-weight:700; flex-shrink:0;
+  }
+  .continue-box .info{ flex:1; }
+  .continue-box .info b{ display:block; font-size:0.95rem; }
+  .continue-box .info span{ font-size:0.78rem; color:var(--text-dim); }
+  .continue-btn{
+    background:var(--seal); color:var(--ink); font-weight:800; font-size:0.85rem;
+    padding:9px 16px; border-radius:999px; white-space:nowrap;
+  }
+
+  /* -------------------- المسار المتعرج -------------------- */
+  .path{
+    position:relative; margin-top:50px; padding-bottom:20px;
+  }
+  .path-node{
+    position:relative; display:flex; justify-content:center; margin-bottom:38px;
+  }
+  /* الإزاحة الأفقية زي دولينجو */
+  .path-node:nth-child(1){ justify-content:center; }
+  .path-node:nth-child(2){ justify-content:flex-start; padding-right:12%; }
+  .path-node:nth-child(3){ justify-content:flex-end; padding-left:12%; }
+  .path-node:nth-child(4){ justify-content:center; }
+  .path-node:nth-child(5){ justify-content:flex-start; padding-right:18%; }
+  .path-node:nth-child(6){ justify-content:flex-end; padding-left:18%; }
+  .path-node:nth-child(7){ justify-content:center; }
+  .path-node:nth-child(8){ justify-content:flex-start; padding-right:12%; }
+  .path-node:nth-child(9){ justify-content:flex-end; padding-left:12%; }
+  .path-node:nth-child(10){ justify-content:center; }
+
+  .node-btn{
+    width:76px; height:76px; border-radius:50%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; position:relative; cursor:pointer;
+    border:none; font-family:'Tajawal',sans-serif;
+  }
+  .node-icon{ font-size:1.7rem; line-height:1; }
+  .node-label{
+    position:absolute; top:84px; width:130px; text-align:center; font-size:0.78rem; font-weight:700;
+    left:50%; transform:translateX(-50%); color:var(--paper);
+  }
+
+  /* حالة: مكتمل */
+  .node-btn.completed{ background:var(--jade); box-shadow:0 6px 16px rgba(47,79,71,0.35); }
+  .node-btn.completed .node-icon{ color:var(--ink); }
+
+  /* حالة: الحالي (التالي) */
+  .node-btn.current{
+    background:var(--seal); box-shadow:0 8px 22px rgba(178,58,46,0.4);
+    animation:pulse 2s infinite;
+  }
+  .node-btn.current .node-icon{ color:var(--ink); }
+  .node-btn.current::after{
+    content:"ابدأ"; position:absolute; top:-30px; background:var(--paper); color:var(--ink);
+    font-size:0.72rem; font-weight:800; padding:4px 10px; border-radius:8px; white-space:nowrap;
+  }
+  .node-btn.current::before{
+    content:""; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    border:6px solid transparent; border-top-color:var(--paper);
+  }
+
+  /* حالة: مقفول */
+  .node-btn.locked{ background:var(--locked); cursor:not-allowed; }
+  .node-btn.locked .node-icon{ color:#8a8270; opacity:0.7; }
+  .node-btn.locked .node-label{ color:var(--text-dim); }
+
+  @keyframes pulse{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.06); }
+    100%{ transform:scale(1); }
+  }
+
+  /* خط واصل بسيط بين النقط (اختياري بصريًا) */
+  .path::before{
+    content:""; position:absolute; top:0; bottom:0; right:50%; width:2px;
+    background:repeating-linear-gradient(to bottom, rgba(150,110,40,0.25) 0 8px, transparent 8px 16px);
+    z-index:-1;
+  }
+
+  footer{ text-align:center; color:var(--text-dim); font-size:0.8rem; margin-top:50px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="back-link" href="index.html">→ الرئيسية</a>
+    <div class="stat-bar">
+      <div class="stat streak">🔥 <span id="streakVal">0</span></div>
+      <div class="stat points">⭐ <span id="pointsVal">0</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">المستوى الثاني</div>
+    <h1>مستوى HSK2</h1>
+    <p>10 دروس، قواعد وكلمات جديدة، وفكرة عن التفكير الصيني في آخر كل درس.</p>
+  </div>
+</section>
+
+<div class="wrap continue-box" id="continueBox">
+  <div class="n" id="continueIcon">▶</div>
+  <div class="info">
+    <b id="continueTitle">استمري من هنا</b>
+    <span id="continueSub">جاري التحميل...</span>
+  </div>
+  <a class="continue-btn" id="continueBtn" href="#">استمر</a>
+</div>
+
+<div class="wrap path" id="pathContainer"></div>
+
+<footer>تعلّم 中文 — مستوى HSK2</footer>
+
+<script src="hsk2-data.js"></script>
+<script src="progress.js"></script>
+<script>
+const LEVEL = "HSK2";
+const TOTAL = HSK2_LESSONS.length;
+
+function renderPath() {
+  const container = document.getElementById('pathContainer');
+  container.innerHTML = '';
+
+  HSK2_LESSONS.forEach(lesson => {
+    const status = TaallimProgress.getLessonStatus(LEVEL, lesson.id);
+
+    const node = document.createElement('div');
+    node.className = 'path-node';
+
+    const isLocked = status === 'locked';
+    const href = isLocked ? '#' : `lesson.html?level=2&l=${lesson.id}`;
+
+    const icon = status === 'completed' ? '✓' : lesson.icon;
+
+    node.innerHTML = `
+      <a href="${href}" style="text-align:center;" ${isLocked ? 'onclick="return false;"' : ''}>
+        <div class="node-btn ${status}">
+          <div class="node-icon">${icon}</div>
+        </div>
+        <div class="node-label">${lesson.title}</div>
+      </a>
+    `;
+    container.appendChild(node);
+  });
+}
+
+function renderStats() {
+  const state = TaallimProgress.loadProgress();
+  document.getElementById('streakVal').textContent = state.streak.current;
+  document.getElementById('pointsVal').textContent = state.points;
+}
+
+function renderContinueBox() {
+  const nextId = TaallimProgress.getNextLessonId(LEVEL, TOTAL);
+  const lesson = HSK2_LESSONS.find(l => l.id === nextId);
+  const state = TaallimProgress.loadProgress();
+  const doneCount = (state.lastCompletedByLevel[LEVEL] || 0);
+
+  if (doneCount >= TOTAL) {
+    document.getElementById('continueIcon').textContent = '🎉';
+    document.getElementById('continueTitle').textContent = 'خلصتي كل الدروس!';
+    document.getElementById('continueSub').textContent = 'راجعي أي درس تحبي من المسار تحت';
+    document.getElementById('continueBtn').textContent = 'مراجعة';
+    document.getElementById('continueBtn').href = `lesson.html?level=2&l=1`;
+    return;
+  }
+
+  document.getElementById('continueIcon').textContent = lesson.icon;
+  document.getElementById('continueTitle').textContent = doneCount === 0
+    ? 'ابدئي من هنا'
+    : `استمري من درس ${nextId}`;
+  document.getElementById('continueSub').textContent = lesson.title;
+  document.getElementById('continueBtn').href = `lesson.html?level=2&l=${nextId}`;
+}
+
+renderStats();
+renderContinueBox();
+renderPath();
+</script>
+
+</body>
+</html>
