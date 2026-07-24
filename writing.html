@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تدريب الكتابة — تعلّم الصيني</title>
+<script src="hsk1-data.js"></script>
+<script src="hsk2-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanzi-writer.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;800&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+  :root{
+    --ink: #1c1a17; --paper: #f3ede1; --paper-deep: #e8dfcd;
+    --seal: #a6362c; --gold: #b8863b; --gold-soft: #d9b774;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(184,134,59,0.07), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(166,54,44,0.06), transparent 40%),
+      var(--paper);
+    color:var(--ink); font-family:'Noto Sans Arabic', sans-serif;
+    min-height:100vh; padding:0 16px 60px;
+  }
+  a{ text-decoration:none; color:inherit; }
+
+  header.top{
+    position:sticky; top:0; z-index:20; background:rgba(243,237,225,0.95); backdrop-filter:blur(8px);
+    margin:0 -16px; padding:14px 16px; border-bottom:1px solid rgba(28,26,23,0.08);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .back-btn{ font-size:0.85rem; font-weight:700; color:var(--seal); }
+  .brand{ font-weight:800; font-size:0.95rem; }
+
+  header.hero{ text-align:center; margin:24px 0 20px; }
+  .eyebrow{ font-size:13px; letter-spacing:2px; color:var(--seal); font-weight:800; margin-bottom:6px; }
+  h1{ font-size:24px; margin:0; font-weight:800; }
+  .sub{ color:#6b6255; font-size:13px; margin-top:6px; }
+
+  /* -------- اختيار المستوى والدرس -------- */
+  .selectors{
+    max-width:460px; margin:0 auto 18px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
+  }
+  .sel-btn{
+    background:var(--paper-deep); border:1.5px solid transparent; border-radius:999px;
+    padding:8px 16px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:inherit;
+  }
+  .sel-btn.active{ background:var(--seal); color:var(--paper); }
+
+  select{
+    font-family:inherit; font-size:0.85rem; font-weight:700; padding:8px 14px;
+    border-radius:999px; border:1.5px solid var(--gold-soft); background:var(--paper-deep); color:var(--ink);
+  }
+
+  /* -------- شبكة اختيار الحرف -------- */
+  .char-grid{
+    max-width:460px; margin:0 auto 20px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+  }
+  .char-grid button{
+    background:var(--paper-deep); border:1.5px solid var(--gold-soft); color:var(--ink);
+    font-family:'Noto Serif SC', serif; font-size:20px; width:46px; height:46px; border-radius:10px; cursor:pointer;
+  }
+  .char-grid button.active{ background:var(--seal); color:var(--paper); border-color:var(--seal); }
+
+  .card{
+    max-width:420px; margin:0 auto 20px; background:var(--paper-deep);
+    border:1px solid rgba(28,26,23,0.08); border-radius:18px; padding:20px;
+    box-shadow:0 10px 30px rgba(28,26,23,0.06); position:relative;
+  }
+  .seal-mark{
+    position:absolute; top:14px; left:14px; width:34px; height:34px; border-radius:6px;
+    background:var(--seal); color:var(--paper); display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif SC', serif; font-size:16px; font-weight:700; box-shadow:0 2px 6px rgba(166,54,44,0.35);
+  }
+  .char-header{ text-align:center; margin-bottom:14px; }
+  .pinyin{ font-size:15px; color:var(--seal); font-weight:700; letter-spacing:1px; }
+  .meaning{ font-size:15px; color:var(--ink); margin-top:2px; }
+
+  #writer-target, #writer-quiz{
+    background:var(--paper); border:2px dashed var(--gold-soft); border-radius:14px;
+    display:block; margin:14px auto;
+  }
+  .btn-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  button{ font-family:inherit; font-weight:700; font-size:14px; border:none; border-radius:999px;
+    padding:10px 18px; cursor:pointer; transition:transform .15s ease; }
+  button:active{ transform:scale(0.96); }
+  .btn-primary{ background:var(--seal); color:var(--paper); box-shadow:0 6px 16px rgba(166,54,44,0.3); }
+  .btn-gold{ background:var(--gold); color:#fff; box-shadow:0 6px 16px rgba(184,134,59,0.3); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1.5px solid rgba(28,26,23,0.2); }
+
+  .status{ text-align:center; min-height:22px; font-size:14px; font-weight:700; margin-top:12px; color:var(--gold); }
+  .status.success{ color:#3f7d4f; }
+
+  .empty-msg{ text-align:center; color:#6b6255; font-size:0.85rem; padding:30px; }
+
+  footer{ text-align:center; font-size:12px; color:#948b7c; margin-top:30px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back-btn" href="index.html">→ الرئيسية</a>
+  <div class="brand">书法 تدريب الكتابة</div>
+</header>
+
+<header class="hero">
+  <div class="eyebrow">书法 · تدريب الكتابة</div>
+  <h1>اكتبي الحرف بالترتيب الصحيح</h1>
+  <div class="sub">اختاري المستوى والدرس، وجربي أي كلمة اتعلمتيها</div>
+</header>
+
+<div class="selectors" id="levelSelectors"></div>
+<div class="selectors" id="lessonSelectors"></div>
+<div class="char-grid" id="charGrid"></div>
+<div id="emptyMsg" class="empty-msg" style="display:none;">مفيش كلمات محمّلة. تأكدي إن ملفات hsk1-data.js و hsk2-data.js مرفوعة في نفس المجلد.</div>
+
+<div class="card" id="demoCard" style="display:none;">
+  <div class="seal-mark">示</div>
+  <div class="char-header">
+    <div class="pinyin" id="demo-pinyin"></div>
+    <div class="meaning" id="demo-meaning"></div>
+  </div>
+  <div id="writer-target"></div>
+  <div class="btn-row">
+    <button class="btn-gold" id="btn-animate">▶ اعرض الترتيب</button>
+  </div>
+</div>
+
+<div class="card" id="quizCard" style="display:none;">
+  <div class="seal-mark">写</div>
+  <div class="char-header">
+    <div class="pinyin">دورك الآن</div>
+    <div class="meaning">ارسمي الحرف بإصبعك بنفس ترتيب الخطوط</div>
+  </div>
+  <div id="writer-quiz"></div>
+  <div class="btn-row">
+    <button class="btn-primary" id="btn-quiz-start">ابدأ الاختبار</button>
+    <button class="btn-ghost" id="btn-quiz-reset">إعادة</button>
+  </div>
+  <div class="status" id="quiz-status"></div>
+</div>
+
+<footer>تعلّم 中文 · مدعوم بمكتبة HanziWriter (مجانية ومفتوحة المصدر)</footer>
+
+<script>
+/* ---------------------------------------------------------------
+   تجميع كل الكلمات المتاحة من ملفات HSK1 وHSK2 (لو موجودين)
+   لو الملفات مش محمّلة، بيرجع لقايمة احتياطية صغيرة
+--------------------------------------------------------------- */
+function extractChar(lesson, w) {
+  // بيدعم صيغة HSK1 (char) وصيغة HSK2 (hanzi)
+  const hanzi = (w.hanzi || w.char || '').split(' / ')[0];
+  const pinyin = w.pinyin || '';
+  const meaning = w.meaning_ar || w.ar || '';
+  return { char: hanzi, pinyin, meaning };
+}
+
+const LEVELS = {};
+
+if (typeof HSK1_LESSONS !== 'undefined') {
+  LEVELS['HSK1'] = HSK1_LESSONS.map(l => ({
+    id: l.id, title: l.title,
+    words: l.words.map(w => extractChar(l, w)).filter(w => w.char)
+  }));
+}
+if (typeof HSK2_LESSONS !== 'undefined') {
+  LEVELS['HSK2'] = HSK2_LESSONS.map(l => ({
+    id: l.id, title: l.title,
+    words: l.words.map(w => extractChar(l, w)).filter(w => w.char)
+  }));
+}
+
+// احتياطي لو مفيش ملفات اتحملت خالص
+const FALLBACK = [
+  { char: "你", pinyin: "nǐ", meaning: "أنتَ" },
+  { char: "好", pinyin: "hǎo", meaning: "جيد / خير" },
+  { char: "学", pinyin: "xué", meaning: "يتعلّم" },
+  { char: "了", pinyin: "le", meaning: "أداة اكتمال الفعل" }
+];
+
+let currentLevel = null;
+let currentLessonIdx = 0;
+let currentChar = null;
+let demoWriter, quizWriter;
+
+const levelKeys = Object.keys(LEVELS);
+
+function init() {
+  if (levelKeys.length === 0) {
+    document.getElementById('emptyMsg').style.display = 'block';
+    renderCharGrid(FALLBACK);
+    loadCharacter(FALLBACK[0]);
+    return;
+  }
+  currentLevel = levelKeys[0];
+  renderLevelSelectors();
+  renderLessonSelectors();
+}
+
+function renderLevelSelectors() {
+  const box = document.getElementById('levelSelectors');
+  box.innerHTML = '';
+  levelKeys.forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'sel-btn' + (key === currentLevel ? ' active' : '');
+    btn.textContent = key;
+    btn.onclick = () => {
+      currentLevel = key;
+      currentLessonIdx = 0;
+      renderLevelSelectors();
+      renderLessonSelectors();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function renderLessonSelectors() {
+  const box = document.getElementById('lessonSelectors');
+  box.innerHTML = '';
+  const select = document.createElement('select');
+  LEVELS[currentLevel].forEach((lesson, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${idx + 1}. ${lesson.title}`;
+    select.appendChild(opt);
+  });
+  select.value = currentLessonIdx;
+  select.onchange = () => {
+    currentLessonIdx = parseInt(select.value, 10);
+    renderCharGridForCurrentLesson();
+  };
+  box.appendChild(select);
+  renderCharGridForCurrentLesson();
+}
+
+function renderCharGridForCurrentLesson() {
+  const lesson = LEVELS[currentLevel][currentLessonIdx];
+  renderCharGrid(lesson.words);
+  if (lesson.words.length) loadCharacter(lesson.words[0]);
+}
+
+function renderCharGrid(words) {
+  const grid = document.getElementById('charGrid');
+  grid.innerHTML = '';
+  words.forEach((w, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = w.char;
+    if (i === 0) btn.classList.add('active');
+    btn.onclick = () => {
+      grid.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadCharacter(w);
+    };
+    grid.appendChild(btn);
+  });
+}
+
+function loadCharacter(c) {
+  currentChar = c;
+  document.getElementById('demoCard').style.display = 'block';
+  document.getElementById('quizCard').style.display = 'block';
+  document.getElementById('demo-pinyin').textContent = c.pinyin;
+  document.getElementById('demo-meaning').textContent = c.meaning;
+
+  document.getElementById('writer-target').innerHTML = '';
+  document.getElementById('writer-quiz').innerHTML = '';
+  document.getElementById('quiz-status').textContent = '';
+  document.getElementById('quiz-status').className = 'status';
+
+  // HanziWriter بيدعم حرف واحد بس؛ لو الكلمة مركبة من أكتر من حرف، ناخد أول حرف
+  const singleChar = c.char.length > 0 ? c.char[0] : c.char;
+
+  demoWriter = HanziWriter.create('writer-target', singleChar, {
+    width: 260, height: 260, padding: 12,
+    strokeColor: '#1c1a17', radicalColor: '#a6362c', outlineColor: '#d9b774',
+    showOutline: true, strokeAnimationSpeed: 1, delayBetweenStrokes: 250
+  });
+
+  quizWriter = HanziWriter.create('writer-quiz', singleChar, {
+    width: 260, height: 260, padding: 12,
+    strokeColor: '#1c1a17', outlineColor: '#d9b774',
+    showOutline: true, showCharacter: false, highlightOnComplete: true
+  });
+}
+
+document.getElementById('btn-animate').addEventListener('click', () => demoWriter.animateCharacter());
+
+document.getElementById('btn-quiz-start').addEventListener('click', () => {
+  const statusEl = document.getElementById('quiz-status');
+  statusEl.textContent = 'ارسمي الآن...';
+  statusEl.className = 'status';
+  quizWriter.quiz({
+    onMistake: (s) => { statusEl.textContent = `خطأ في الخط رقم ${s.strokeNum + 1}، حاولي تاني`; statusEl.className = 'status'; },
+    onCorrectStroke: (s) => { statusEl.textContent = `صح! باقي ${s.strokesRemaining} خط`; statusEl.className = 'status success'; },
+    onComplete: (s) => { statusEl.textContent = `أحسنت! أكملتِ الحرف (${s.totalMistakes} أخطاء)`; statusEl.className = 'status success'; }
+  });
+});
+
+document.getElementById('btn-quiz-reset').addEventListener('click', () => loadCharacter(currentChar));
+
+init();
+</script>
+
+</body>
+</html>
