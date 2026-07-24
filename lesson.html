@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">درس HSK1 — تعلّم الصيني</title>
+<title id="pageTitle">درس — تعلّم الصيني</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -15,7 +15,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{ background:var(--ink); color:var(--paper); font-family:'Tajawal',sans-serif; line-height:1.75; }
-  h1,h2{ font-family:'Amiri',serif; }
+  h1,h2,h3{ font-family:'Amiri',serif; }
   .zh{ font-family:'Noto Serif SC',serif; }
   .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
 
@@ -27,6 +27,10 @@
   .brand{ font-family:'Amiri',serif; font-size:1.15rem; }
   .back-link{ font-size:0.9rem; color:var(--text-soft); text-decoration:none; }
   .back-link:hover{ color:var(--gold); }
+  .header-stats{ display:flex; gap:10px; }
+  .stat{ display:flex; align-items:center; gap:4px; font-weight:800; font-size:0.82rem;
+    background:var(--ink-2); border:1px solid rgba(150,110,40,0.25); border-radius:999px; padding:4px 10px; }
+  .stat.streak{ color:var(--seal); } .stat.points{ color:var(--gold); }
 
   .hero{ padding:50px 0 30px; }
   .eyebrow{ color:var(--gold); font-size:0.85rem; margin-bottom:10px; }
@@ -54,6 +58,56 @@
   }
   .sound-btn:hover{ background:var(--gold); color:var(--ink); }
 
+  /* -------- قسم القاعدة النحوية (HSK2) -------- */
+  .grammar-box{
+    margin-top:24px; background:var(--ink-2); border:1px solid rgba(47,79,71,0.3);
+    border-radius:6px; padding:26px 28px;
+  }
+  .grammar-badge{ font-weight:700; color:var(--jade); font-size:0.95rem; margin-bottom:10px; }
+  .grammar-box .pattern{
+    background:rgba(47,79,71,0.08); border-radius:4px; padding:10px 14px; margin:12px 0;
+    font-weight:700; color:var(--jade); text-align:center; font-size:0.95rem;
+  }
+  .grammar-box p{ color:var(--text-soft); font-size:0.93rem; }
+  .grammar-example{ margin-top:10px; font-size:0.88rem; color:var(--paper); }
+  .grammar-example .zh{ color:var(--seal); }
+
+  /* -------- بطاقة الفكر الصيني -------- */
+  .culture-card{
+    margin-top:24px; background:linear-gradient(135deg, rgba(178,58,46,0.08), rgba(47,79,71,0.08));
+    border:1px solid rgba(178,58,46,0.25); border-radius:6px; padding:26px 28px;
+  }
+  .culture-badge{ font-weight:700; color:var(--seal); font-size:0.95rem; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .culture-card h3{ font-size:1.05rem; margin-bottom:10px; color:var(--paper); font-family:'Tajawal',sans-serif; font-weight:800; }
+  .culture-card p{ color:var(--paper); font-size:0.93rem; line-height:1.9; }
+
+  /* -------- قسم الكويز -------- */
+  .quiz-box{
+    margin-top:24px; background:var(--ink-2); border:1px solid rgba(150,110,40,0.25);
+    border-radius:6px; padding:26px 28px;
+  }
+  .quiz-badge{ font-weight:700; color:var(--gold); font-size:0.95rem; margin-bottom:16px; }
+  .quiz-q{ margin-bottom:22px; }
+  .quiz-q-text{ font-weight:700; margin-bottom:10px; }
+  .quiz-options{ display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt{
+    text-align:right; padding:12px 16px; border-radius:4px; border:1px solid rgba(150,110,40,0.25);
+    background:var(--ink); cursor:pointer; font-family:'Tajawal',sans-serif; font-size:0.9rem; color:var(--paper);
+  }
+  .quiz-opt:hover{ border-color:var(--gold); }
+  .quiz-opt.correct{ background:rgba(47,79,71,0.18); border-color:var(--jade); color:var(--jade); font-weight:700; }
+  .quiz-opt.wrong{ background:rgba(178,58,46,0.15); border-color:var(--seal); color:var(--seal); font-weight:700; }
+  .quiz-opt.disabled{ pointer-events:none; opacity:0.7; }
+  .quiz-submit{
+    width:100%; margin-top:6px; background:var(--gold); color:var(--ink); border:none;
+    padding:15px; border-radius:4px; font-weight:800; font-family:'Tajawal',sans-serif; cursor:pointer; font-size:0.95rem;
+  }
+  .quiz-submit:hover{ opacity:0.88; }
+  .quiz-result{
+    margin-top:16px; text-align:center; padding:16px; border-radius:4px; font-weight:800;
+    background:rgba(47,79,71,0.12); color:var(--jade); display:none;
+  }
+
   .nav-buttons{ display:flex; justify-content:space-between; gap:16px; margin-top:40px; }
   .nav-btn{
     flex:1; text-align:center; padding:16px; border-radius:4px; text-decoration:none;
@@ -71,6 +125,20 @@
   .review-box p{ color:var(--text-soft); }
   .review-box a{ color:var(--gold); }
 
+  .review-cta{
+    margin-top:16px; display:block; text-align:center; background:var(--jade); color:var(--on-accent);
+    padding:15px; border-radius:4px; font-weight:700; text-decoration:none;
+  }
+  .review-cta:hover{ opacity:0.88; }
+
+  /* -------- توست نقاط -------- */
+  .points-toast{
+    position:fixed; bottom:24px; right:50%; transform:translateX(50%) translateY(120%);
+    background:var(--paper); color:var(--ink); padding:14px 24px; border-radius:999px;
+    font-weight:800; box-shadow:0 10px 30px rgba(0,0,0,0.25); transition:transform .4s ease; z-index:50;
+  }
+  .points-toast.show{ transform:translateX(50%) translateY(0); }
+
   footer{ padding:40px 0; text-align:center; color:var(--text-dim); font-size:0.85rem; }
 
   @media (max-width:640px){
@@ -83,8 +151,11 @@
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">تعلّم <span class="zh" style="color:var(--seal)">中文</span></div>
-    <a class="back-link" href="hsk1.html">→ رجوع لدروس HSK1</a>
+    <a class="back-link" id="backLink" href="hsk1.html">→ رجوع</a>
+    <div class="header-stats">
+      <div class="stat streak">🔥 <span id="streakVal">0</span></div>
+      <div class="stat points">⭐ <span id="pointsVal">0</span></div>
+    </div>
   </div>
 </header>
 
@@ -102,43 +173,93 @@
   <div class="wrap">
     <div class="vocab-list" id="vocabList"></div>
 
+    <div id="grammarSlot"></div>
+    <div id="cultureSlot"></div>
+    <div id="quizSlot"></div>
+
     <div class="nav-buttons">
       <a class="nav-btn prev" id="prevBtn" href="#">← الدرس السابق</a>
       <a class="nav-btn next" id="nextBtn" href="#">الدرس التالي ←</a>
     </div>
 
     <div class="review-box">
-      <p>خلصت الدرس؟ <a href="hsk1.html">رجوع لخريطة كل الدروس</a></p>
+      <p>خلصت الدرس؟ <a id="backLink2" href="hsk1.html">رجوع لخريطة كل الدروس</a></p>
+      <a class="review-cta" id="reviewBtn" href="#">🧠 اختبر نفسك في كلمات الدرس ←</a>
     </div>
   </div>
 </section>
 
+<div class="points-toast" id="pointsToast"></div>
+
 <footer id="pageFooter">تعلّم 中文</footer>
 
 <script src="hsk1-data.js"></script>
+<script src="hsk2-data.js"></script>
+<script src="progress.js"></script>
 <script>
-  /* ---- read lesson number from URL: lesson.html?l=3 ---- */
+  /* ---- read level + lesson number from URL: lesson.html?level=1&l=3 ---- */
   const params = new URLSearchParams(window.location.search);
+  const level = parseInt(params.get('level') || '1', 10);
   const lessonId = parseInt(params.get('l') || '1', 10);
-  const lesson = HSK1_LESSONS.find(l => l.id === lessonId);
-  const total = HSK1_LESSONS.length;
+  const isHSK2 = (level === 2 && typeof HSK2_LESSONS !== 'undefined');
+  const LESSONS = isHSK2 ? HSK2_LESSONS : HSK1_LESSONS;
+  const levelLabel = level === 2 ? 'HSK2' : 'HSK1';
+  const hubPage = level === 2 ? 'hsk2-path.html' : 'hsk1.html';
+  const lesson = LESSONS.find(l => l.id === lessonId);
+  const total = LESSONS.length;
+
+  document.getElementById('backLink').href = hubPage;
+  document.getElementById('backLink').textContent = `→ رجوع لدروس ${levelLabel}`;
+  document.getElementById('backLink2').href = hubPage;
+
+  /* ---- تطبيع الكلمات: HSK1 بيستخدم char/ar/ex_zh، HSK2 بيستخدم hanzi/meaning_ar/example{} ---- */
+  function normalizeWord(w){
+    if (w.hanzi !== undefined){
+      return {
+        char: w.hanzi,
+        pinyin: w.pinyin,
+        ar: w.meaning_ar,
+        ex_zh: w.example ? w.example.hanzi : '',
+        ex_py: w.example ? w.example.pinyin : '',
+        ex_ar: w.example ? w.example.meaning_ar : ''
+      };
+    }
+    return w; // شكل HSK1 الأصلي أصلًا
+  }
+
+  /* ---- عرض نقاط/ستريك الهيدر ---- */
+  function renderHeaderStats(){
+    const state = TaallimProgress.loadProgress();
+    document.getElementById('streakVal').textContent = state.streak.current;
+    document.getElementById('pointsVal').textContent = state.points;
+  }
+  renderHeaderStats();
+
+  function showPointsToast(msg){
+    const toast = document.getElementById('pointsToast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2600);
+  }
 
   if (!lesson) {
     document.getElementById('lessonTitle').textContent = 'الدرس مش موجود';
   } else {
-    document.title = `الدرس ${lesson.id}: ${lesson.title} — HSK1 — تعلّم الصيني`;
-    document.getElementById('eyebrow').textContent = `HSK1 — الدرس ${lesson.id} من ${total}`;
+    document.title = `الدرس ${lesson.id}: ${lesson.title} — ${levelLabel} — تعلّم الصيني`;
+    document.getElementById('eyebrow').textContent = `${levelLabel} — الدرس ${lesson.id} من ${total}`;
     document.getElementById('lessonTitle').textContent = lesson.title;
     document.getElementById('lessonDesc').textContent = `${lesson.words.length} كلمة أساسية في الدرس ده.`;
     document.getElementById('progressBar').style.width = `${(lesson.id/total)*100}%`;
-    document.getElementById('progressLabel').textContent = `الدرس ${lesson.id} من ${total} — مستوى HSK1`;
-    document.getElementById('pageFooter').textContent = `تعلّم 中文 — الدرس ${lesson.id} من ${total} — مستوى HSK1`;
+    document.getElementById('progressLabel').textContent = `الدرس ${lesson.id} من ${total} — مستوى ${levelLabel}`;
+    document.getElementById('pageFooter').textContent = `تعلّم 中文 — الدرس ${lesson.id} من ${total} — مستوى ${levelLabel}`;
 
     const list = document.getElementById('vocabList');
-    lesson.words.forEach((w, idx) => {
+    lesson.words.forEach((raw, idx) => {
+      const w = normalizeWord(raw);
       const item = document.createElement('div');
       item.className = 'vocab-item';
       const wordIndex = idx + 1;
+      const audioPath = raw.audio ? raw.audio : `audio/hsk${level}/l${lesson.id}-${wordIndex}.wav`;
       item.innerHTML = `
         <div class="v-char zh">${w.char}</div>
         <div class="v-pinyin">${w.pinyin}</div>
@@ -146,7 +267,7 @@
           <div class="v-ar">${w.ar}</div>
           <div class="v-example"><span class="zh">${w.ex_zh}</span> (${w.ex_py}) = ${w.ex_ar}</div>
         </div>
-        <button class="sound-btn" data-char="${w.char.split(' / ')[0]}" data-audio="audio/hsk1/l${lesson.id}-${wordIndex}.wav">🔊</button>
+        <button class="sound-btn" data-char="${w.char.split(' / ')[0]}" data-audio="${audioPath}">🔊</button>
       `;
       list.appendChild(item);
     });
@@ -154,12 +275,125 @@
       btn.addEventListener('click', ()=> playWord(btn.dataset.audio, btn.dataset.char));
     });
 
+    /* ---- قسم القاعدة النحوية (HSK2 بس) ---- */
+    if (lesson.grammar) {
+      const g = lesson.grammar;
+      const box = document.createElement('div');
+      box.className = 'grammar-box';
+      box.innerHTML = `
+        <div class="grammar-badge">📖 القاعدة</div>
+        <h3>${g.title_ar}</h3>
+        <p>${g.explanation_ar}</p>
+        <div class="pattern">${g.pattern}</div>
+        ${g.examples.map(ex => `
+          <div class="grammar-example">
+            <span class="zh">${ex.hanzi}</span> (${ex.pinyin}) = ${ex.meaning_ar}
+          </div>`).join('')}
+      `;
+      document.getElementById('grammarSlot').appendChild(box);
+    }
+
+    /* ---- بطاقة الفكر الصيني: cultureCard (HSK2) أو culture نص بسيط (HSK1) ---- */
+    if (lesson.cultureCard) {
+      const c = lesson.cultureCard;
+      const box = document.createElement('div');
+      box.className = 'culture-card';
+      box.innerHTML = `
+        <div class="culture-badge">${c.icon || '🏮'} فكرة عن التفكير الصيني</div>
+        <h3>${c.title_ar}</h3>
+        <p>${c.body_ar}</p>
+      `;
+      document.getElementById('cultureSlot').appendChild(box);
+      // تسجيل قراءة البطاقة لستريك الثقافة، بعد ثانيتين من ظهورها فعليًا
+      setTimeout(() => {
+        const before = TaallimProgress.loadProgress().points;
+        const after = TaallimProgress.readCultureCard(c.id);
+        renderHeaderStats();
+        if (after.points > before) showPointsToast(`+${after.points - before} نقطة 🏮 قرأت فكرة اليوم`);
+      }, 2000);
+    } else if (lesson.culture) {
+      const box = document.createElement('div');
+      box.className = 'culture-card';
+      box.innerHTML = `<div class="culture-badge">🏮 نافذة على الصين</div><p>${lesson.culture}</p>`;
+      document.getElementById('cultureSlot').appendChild(box);
+    }
+
+    /* ---- الكويز التفاعلي (HSK2) ---- */
+    if (lesson.quiz && lesson.quiz.length) {
+      const box = document.createElement('div');
+      box.className = 'quiz-box';
+      let html = `<div class="quiz-badge">✏️ اختبري نفسك في الدرس ده</div>`;
+      lesson.quiz.forEach((q, qi) => {
+        html += `
+          <div class="quiz-q" data-qindex="${qi}" data-correct="${q.correctIndex}">
+            <div class="quiz-q-text">${qi+1}. ${q.question_ar}</div>
+            <div class="quiz-options">
+              ${q.options.map((opt, oi) => `<button class="quiz-opt" data-oindex="${oi}">${opt}</button>`).join('')}
+            </div>
+          </div>`;
+      });
+      html += `<button class="quiz-submit" id="quizSubmit">تأكيد الإجابات ✓</button>
+               <div class="quiz-result" id="quizResult"></div>`;
+      box.innerHTML = html;
+      document.getElementById('quizSlot').appendChild(box);
+
+      const answers = {};
+      box.querySelectorAll('.quiz-q').forEach(qEl => {
+        const qi = qEl.dataset.qindex;
+        qEl.querySelectorAll('.quiz-opt').forEach(optBtn => {
+          optBtn.addEventListener('click', () => {
+            qEl.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+            optBtn.classList.add('selected');
+            answers[qi] = parseInt(optBtn.dataset.oindex, 10);
+          });
+        });
+      });
+
+      document.getElementById('quizSubmit').addEventListener('click', () => {
+        let correctCount = 0;
+        box.querySelectorAll('.quiz-q').forEach(qEl => {
+          const qi = qEl.dataset.qindex;
+          const correctIdx = parseInt(qEl.dataset.correct, 10);
+          const chosen = answers[qi];
+          qEl.querySelectorAll('.quiz-opt').forEach(b => {
+            b.classList.add('disabled');
+            const oi = parseInt(b.dataset.oindex, 10);
+            if (oi === correctIdx) b.classList.add('correct');
+            else if (oi === chosen) b.classList.add('wrong');
+          });
+          if (chosen === correctIdx) correctCount++;
+        });
+
+        const total_q = lesson.quiz.length;
+        const beforePts = TaallimProgress.loadProgress().points;
+        const state = TaallimProgress.completeLesson(levelLabel, lesson.id, { correct: correctCount, total: total_q });
+        renderHeaderStats();
+
+        const resultBox = document.getElementById('quizResult');
+        resultBox.style.display = 'block';
+        resultBox.textContent = `أجبتِ صح على ${correctCount} من ${total_q} — +${state.points - beforePts} نقطة`;
+        document.getElementById('quizSubmit').disabled = true;
+        showPointsToast(`🎉 الدرس اتحسب! +${state.points - beforePts} نقطة`);
+      });
+    }
+
+    /* ---- زرار المراجعة ---- */
+    document.getElementById('reviewBtn').href = `review.html?level=${level}&l=${lesson.id}`;
+
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    if (lesson.id > 1){ prevBtn.href = `lesson.html?l=${lesson.id-1}`; }
+    if (lesson.id > 1){ prevBtn.href = `lesson.html?level=${level}&l=${lesson.id-1}`; }
     else { prevBtn.classList.add('disabled'); }
-    if (lesson.id < total){ nextBtn.href = `lesson.html?l=${lesson.id+1}`; }
-    else { nextBtn.textContent = 'خلصت المستوى! 🎉'; nextBtn.href = 'hsk1.html'; }
+
+    if (lesson.id < total){ nextBtn.href = `lesson.html?level=${level}&l=${lesson.id+1}`; }
+    else { nextBtn.textContent = 'خلصت المستوى! 🎉'; nextBtn.href = hubPage; }
+
+    /* ---- لو الدرس مفيهوش كويز (زي دروس HSK1 الحالية)، سجّلي الإكمال لما يضغطوا "التالي" ---- */
+    if (!lesson.quiz || !lesson.quiz.length) {
+      nextBtn.addEventListener('click', () => {
+        TaallimProgress.completeLesson(levelLabel, lesson.id, null);
+      });
+    }
   }
 
   /* ---- play pre-recorded audio, fallback to device TTS if the file is missing ---- */
